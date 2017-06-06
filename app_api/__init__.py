@@ -3,6 +3,7 @@ from config.config import config
 from .database import db
 from flask_restful import Api
 
+
 def create_app(config_name):
     app = Flask(__name__)
 
@@ -13,16 +14,19 @@ def create_app(config_name):
     db.init_app(app)
     api = Api(app)
 
-
     from .controllers import bp_main
     from .controllers.login import bp_login
 
     app.register_blueprint(bp_main)
     app.register_blueprint(bp_login)
 
-
     from .controllers.restful import RestFul
-    api.add_resource(RestFul,'/users')
+    api.add_resource(RestFul, '/users')
 
+    with app.test_request_context():
+        import app_api.entity.examination as exam
+        print("开始创建数据库......")
+        db.create_all()
+    print("数据库创建完毕Success！")
 
     return app

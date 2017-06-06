@@ -3,12 +3,12 @@ import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__)+"/../")
 
 class Config(object):
-    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     MSSQL_DB = {
         "uid": "cmemaster",
         "pwd": "cme28122661",
-        "host": "192.168.1.109",
+        "host": "139.129.131.87",
         "db": "WSCME"
     }
     @staticmethod
