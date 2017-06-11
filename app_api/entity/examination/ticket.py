@@ -4,6 +4,7 @@ from app_api.entity.entitybase import EntityBase
 from sqlalchemy import Column,String,NVARCHAR,ForeignKey,DateTime
 
 class Ticket(EntityBase):
+    """考生生成的准考证"""
     __tablename__="ExaminationTicket"
 
     Number = Column(String(20),unique=True)

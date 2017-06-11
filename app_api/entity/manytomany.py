@@ -14,3 +14,10 @@ TrainingInstitutionAndType = \
         Column("TrainingInstitutionId", String(32), ForeignKey("TrainingInstitution.Id"), primary_key=True),
         Column("TypeId", String(32), ForeignKey("TrainingInstitution_Type.Id"), primary_key=True)
     )
+
+TESTLibraryAndCategory = \
+    Table(
+        "TESTLibraryAndCategory",Base.metadata,
+        Column("TESTLibraryId",String(32),ForeignKey("TESTLibrary.Id"),primary_key=True),
+        Column("CategoryId",String(32),ForeignKey("TESTLibrary_Category.Id"),primary_key=True)
+    )
