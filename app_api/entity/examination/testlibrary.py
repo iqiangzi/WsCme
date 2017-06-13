@@ -20,7 +20,7 @@ class LibraryCategory(EntityBase):
 
     Name = Column(NVARCHAR(50), unique=True)
     PID = Column(String(32), ForeignKey("TESTLibrary_Category.Id"))
-    Childs = relationship("LibraryCategory", backref=backref("Parent", uselist=False), remote_side=[EntityBase.Id])
+    Childs = relationship("LibraryCategory")
 
 
 class TESTLibrary(EntityBase):

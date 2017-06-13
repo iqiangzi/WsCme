@@ -1,6 +1,6 @@
 from flask import Flask
 from config.config import config
-from .database import db
+from .database import init_db
 from flask_restful import Api
 
 
@@ -9,9 +9,11 @@ def create_app(config_name):
 
     configobj = config["default"]
     app.config.from_object(configobj)
-
     configobj.init_app(app)
-    db.init_app(app)
+    app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
+
+    # db.init_app(app)
+
     api = Api(app)
 
     from .controllers import bp_main
@@ -22,11 +24,5 @@ def create_app(config_name):
 
     from .controllers.restful import RestFul
     api.add_resource(RestFul, '/users')
-
-    with app.test_request_context():
-        import app_api.entity.examination as exam
-        print("开始创建数据库......")
-        db.create_all()
-    print("数据库创建完毕Success！")
 
     return app
