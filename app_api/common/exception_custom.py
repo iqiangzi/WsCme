@@ -1,0 +1,3 @@
+
+class ArgumentException(Exception):
+    pass

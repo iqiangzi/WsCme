@@ -1,30 +1,10 @@
 from app_api.database import Base
 from sqlalchemy import Column, String, DateTime
-from sqlalchemy.ext.declarative import AbstractConcreteBase,declared_attr
+from sqlalchemy.ext.declarative import AbstractConcreteBase,declared_attr,DeclarativeMeta
 from datetime import datetime
 import uuid
 
-# Base = db.Model
 
-
-def getattr_(self, name):
-    if name == "Created":
-        value = self.__dict__["Created"]
-        return str(value)
-    else:
-        return getattr(self, name, None)
-
-
-def to_dict(self):
-    # print(self.__dict__["Created"])
-    """
-    model 对象转 字典
-    model_obj.to_dict()
-    """
-    return {c.name: getattr_(self, c.name) for c in self.__table__.columns}
-
-
-Base.to_dict = to_dict
 
 
 class EntityBase(Base,AbstractConcreteBase):

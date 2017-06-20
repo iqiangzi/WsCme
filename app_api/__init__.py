@@ -1,7 +1,7 @@
 from flask import Flask
 from config.config import config
 from .database import init_db
-from flask_restful import Api
+
 
 
 def create_app(config_name):
@@ -12,17 +12,17 @@ def create_app(config_name):
     configobj.init_app(app)
     app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 
-    # db.init_app(app)
 
-    api = Api(app)
 
     from .controllers import bp_main
     from .controllers.login import bp_login
+    from .controllers.traininginstitutioncategory import bp_trainingstitutioncategory
+
+
 
     app.register_blueprint(bp_main)
     app.register_blueprint(bp_login)
+    app.register_blueprint(bp_trainingstitutioncategory,)
 
-    from .controllers.restful import RestFul
-    api.add_resource(RestFul, '/users')
 
     return app

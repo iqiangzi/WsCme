@@ -1,6 +1,6 @@
 from app_api.database import db_session
 from sqlalchemy.inspection import inspect
-
+from sqlalchemy.sql.schema import Table
 
 def get_row_by_id(model_name, pk_id):
     """
@@ -201,7 +201,12 @@ def insert_rows(model_name, data_list):
     :return:
     """
     try:
-        result = db_session.execute(model_name.__table__.insert().prefix_with('IGNORE'), data_list)
+        # result = db_session.execute(model_name.__table__.insert().prefix_with('IGNORE'), data_list)
+        result = None
+        if isinstance(model_name,Table):
+            result = db_session.execute(model_name.insert(),data_list)
+        else:
+            result = db_session.execute(model_name.__table__.insert(), data_list)
         db_session.commit()
         return result.rowcount
     except Exception as e:

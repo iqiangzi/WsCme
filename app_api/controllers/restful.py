@@ -5,17 +5,20 @@ from app_api.entity.examination import *
 import json
 from app_api.database import db_session
 from datetime import datetime
+from app_api.common.db import get_lists
+from app_api.common.resouce_fields import resource_fields
 
-resource_fields={
-    "Name":fields.String
-}
+
 
 parser = reqparse.RequestParser()
 parser.add_argument('rate',type=int,help="rate is int")
 # args = parser.parse_args()
 
+resource_fields.update(Desc = fields.Integer)
 
 class RestFul(Resource):
+    def insert(self):
+        return "aa"
     def post(self):
         args = parser.parse_args(strict=True)
 
@@ -30,12 +33,13 @@ class RestFul(Resource):
         # db.session.commit()
 
         # traininginstitution.Category.remove(category)
-        t = TrainingInstitutionCategory()
-        t.Name = "公共科目"
-        t.Desc = 0
-        db_session.add(t)
-        db_session.commit()
+        result = get_lists(TrainingInstitutionCategory,TrainingInstitutionCategory.Name != "")
 
+        # result.to_dict()
         # return {c for c in t.__dict__}
+        re = {
+            "success":True,
+            "data":json.dumps(result)
+        }
 
-        return t.to_dict()
+        return re
