@@ -22,7 +22,7 @@ def create_app(config_name):
 
     app.register_blueprint(bp_main)
     app.register_blueprint(bp_login)
-    app.register_blueprint(bp_trainingstitutioncategory,)
+    app.register_blueprint(bp_trainingstitutioncategory)
 
 
     return app

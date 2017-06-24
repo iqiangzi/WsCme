@@ -10,6 +10,7 @@ def get_row_by_id(model_name, pk_id):
     :return None/object
     """
     row = db_session.query(model_name).get(pk_id)
+    return row
 
 
 def get_rows_by_ids(model_name, pk_ids):
@@ -132,6 +133,14 @@ def edit(model_name, pk_id, data):
         result = model_obj.update(data)
         db_session.commit()
         return result
+    except Exception as e:
+        db_session.rollback()
+        raise e
+
+def merge(model_name):
+    try:
+        db_session.merge(model_name)
+        db_session.commit()
     except Exception as e:
         db_session.rollback()
         raise e
